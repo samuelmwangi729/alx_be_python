@@ -1,26 +1,33 @@
 # daily_reminder.py
 
-# Prompt the user for task details
-task = input("Enter your task: ")
-priority = input("Priority (high/medium/low): ").lower()
-time_bound = input("Is it time-bound? (yes/no): ").lower()
+while True:
+    task = input("Enter your task: ").strip()
+    priority = input("Priority (high/medium/low): ").strip().lower()
+    time_bound = input("Is it time-bound? (yes/no): ").strip().lower()
 
-# Process the priority using match-case (requires Python 3.10+)
-match priority:
-    case "high":
-        message = f"'{task}' is a high priority task"
-    case "medium":
-        message = f"'{task}' is a medium priority task"
-    case "low":
-        message = f"'{task}' is a low priority task"
-    case _:
-        message = f"'{task}' has an unspecified priority"
+    print()  # Add a blank line for readability
 
-# Modify the message based on time sensitivity
-if time_bound == "yes":
-    message += " that requires immediate attention today!"
-else:
-    message += ". Consider completing it when you have free time."
+    match priority:
+        case "high":
+            if time_bound == "yes":
+                print(f"Reminder: '{task}' is a high priority task that requires immediate attention today!")
+            else:
+                print(f"Note: '{task}' is a high priority task. Try to complete it as soon as possible.")
+        case "medium":
+            if time_bound == "yes":
+                print(f"Reminder: '{task}' is a medium priority task that should be addressed today.")
+            else:
+                print(f"Note: '{task}' is a medium priority task. Plan to work on it soon.")
+        case "low":
+            if time_bound == "yes":
+                print(f"Reminder: '{task}' is a low priority task that still needs to be done today.")
+            else:
+                print(f"Note: '{task}' is a low priority task. Consider completing it when you have free time.")
+        case _:
+            print("Invalid priority entered. Please enter 'high', 'medium', or 'low'.")
 
-# Print the final reminder
-print("\nReminder:", message)
+    print()  # Add spacing between reminders
+    again = input("Would you like to enter another task? (yes/no): ").strip().lower()
+    if again != "yes":
+        print("Goodbye!")
+        break
